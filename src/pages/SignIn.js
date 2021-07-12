@@ -28,10 +28,6 @@ const SignIn = () => {
     signInWithProvider(new firebase.auth.GoogleAuthProvider());
   };
 
-  const onStrangerSignIn = () => {
-    signInWithProvider(new firebase.auth.EmailAuthProvider());
-  };
-
   return (
     <Container>
       <Grid className="mt-page">
@@ -49,9 +45,6 @@ const SignIn = () => {
                 </Button>
                 <Button block color="green" onClick={onGoogleSignIn}>
                   <Icon icon="google" /> Continue with Google
-                </Button>
-                <Button block color="red" onClick={onStrangerSignIn}>
-                  <Icon icon="envelope" /> Continue with Email
                 </Button>
               </div>
             </Panel>

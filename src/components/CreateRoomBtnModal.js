@@ -11,8 +11,8 @@ import {
   Schema,
 } from 'rsuite';
 import firebase from 'firebase/app';
-import { useModalState } from '../../misc/custom-hooks';
-import { database } from '../../misc/firebase';
+import { useModalState } from '../misc/custom-hooks';
+import { database } from '../misc/firebase';
 
 const { StringType } = Schema.Types;
 
@@ -88,7 +88,7 @@ const CreateRoomBtnModal = () => {
             <FormGroup>
               <ControlLabel>Description</ControlLabel>
               <FormControl
-                componentClass="text-area"
+                componentClass="textarea"
                 rows={5}
                 name="description"
                 placeholder="Enter Room Description"

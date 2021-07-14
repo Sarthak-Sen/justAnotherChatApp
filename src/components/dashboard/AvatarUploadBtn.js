@@ -4,7 +4,7 @@ import AvatarEditor from 'react-avatar-editor';
 import { useModalState } from '../../misc/custom-hooks';
 import { useProfile } from '../../context/profile.context';
 import { database, storage } from '../../misc/firebase';
-import ProfileAvatar from './ProfileAvatar';
+import ProfileAvatar from '../ProfileAvatar';
 
 const fileInputTypes = '.png, .jpeg, .jpg';
 const acceptedFileTypes = [
@@ -12,10 +12,6 @@ const acceptedFileTypes = [
   'image/jpeg',
   'image/jpg',
   'image/pjpeg',
-  'images/png',
-  'images/jpeg',
-  'images/jpg',
-  'images/pjpeg',
 ];
 const isValidFile = file => acceptedFileTypes.includes(file.type);
 const getBlob = canvas => {
@@ -34,8 +30,8 @@ const AvatarUploadBtn = () => {
   const { isOpen, open, close } = useModalState();
   const { profile } = useProfile();
   const [img, setImg] = useState(null);
-  const avatarEditorRef = useRef();
   const [isLoading, setIsLoading] = useState(false);
+  const avatarEditorRef = useRef();
   const onFileInputChange = ev => {
     const currFiles = ev.target.files;
     if (currFiles.length === 1) {

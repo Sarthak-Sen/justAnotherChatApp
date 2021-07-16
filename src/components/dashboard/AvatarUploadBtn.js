@@ -5,6 +5,7 @@ import { useModalState } from '../../misc/custom-hooks';
 import { useProfile } from '../../context/profile.context';
 import { database, storage } from '../../misc/firebase';
 import ProfileAvatar from '../ProfileAvatar';
+import { getUserUpdates } from '../../misc/helpers';
 
 const fileInputTypes = '.png, .jpeg, .jpg';
 const acceptedFileTypes = [
@@ -32,6 +33,7 @@ const AvatarUploadBtn = () => {
   const [img, setImg] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const avatarEditorRef = useRef();
+
   const onFileInputChange = ev => {
     const currFiles = ev.target.files;
     if (currFiles.length === 1) {
@@ -48,20 +50,28 @@ const AvatarUploadBtn = () => {
   const onUploadClick = async () => {
     const canvas = avatarEditorRef.current.getImageScaledToCanvas();
     setIsLoading(true);
+
     try {
       const blob = await getBlob(canvas);
       const avatarFileRef = storage
         .ref(`profiles/${profile.uid}`)
         .child('avatar');
+
       const uploadAvatarResult = await avatarFileRef.put(blob, {
         cacheControl: `public,max-age=${3600 * 24 * 3}`,
       });
       const downloadUrl = await uploadAvatarResult.ref.getDownloadURL();
-      const userAvatarRef = database
-        .ref(`profiles/${profile.uid}`)
-        .child('avatar');
-      await userAvatarRef.set(downloadUrl);
+
+      const updates = await getUserUpdates(
+        profile.uid,
+        'avatar',
+        downloadUrl,
+        database
+      );
+      await database.ref.update(updates);
+
       setIsLoading(false);
+
       Alert.info('Avatar Uploaded', 4000);
     } catch (err) {
       setIsLoading(false);

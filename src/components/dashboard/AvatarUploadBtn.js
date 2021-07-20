@@ -68,7 +68,7 @@ const AvatarUploadBtn = () => {
         downloadUrl,
         database
       );
-      await database.ref.update(updates);
+      await database.ref().update(updates);
 
       setIsLoading(false);
 

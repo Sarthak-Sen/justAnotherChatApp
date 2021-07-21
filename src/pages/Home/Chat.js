@@ -25,13 +25,13 @@ const Chat = () => {
   const { name, description } = currentRoom;
 
   const admins = transformToArray(currentRoom.admins);
-  const isAdmins = admins.includes(auth.currentUser.uid);
+  const isAdmin = admins.includes(auth.currentUser.uid);
 
   const currentRoomData = {
     name,
     description,
     admins,
-    isAdmins,
+    isAdmin,
   };
 
   return (

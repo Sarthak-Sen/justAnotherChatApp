@@ -14,8 +14,18 @@ const renderFileMessage = file => {
   if (file.contentType.includes('image')) {
     return (
       <div className="height-220">
-        <ImgBtnModal src={file.url} ame={file.name} />
+        <ImgBtnModal src={file.url} name={file.name} />
       </div>
+    );
+  }
+
+  if (file.contentType.includes('audio')) {
+    return (
+      // eslint-disable-next-line jsx-a11y/media-has-caption
+      <audio controls>
+        <source src={file.url} type="audio/mp3" />
+        Your Browser Does Not Support The Audio Element
+      </audio>
     );
   }
 
@@ -91,7 +101,7 @@ const MessageItem = ({ message, handleAdmin, handleLike, handleDelete }) => {
             isVisible={canShowIcons}
             iconName="close"
             tooltip="Delete This Message"
-            onClick={() => handleDelete(message.id)}
+            onClick={() => handleDelete(message.id, file)}
           />
         )}
       </div>

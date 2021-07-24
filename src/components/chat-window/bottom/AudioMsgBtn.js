@@ -5,7 +5,7 @@ import { ReactMic } from 'react-mic';
 import { storage } from '../../../misc/firebase';
 
 const AudioMsgBtn = ({ afterUpload }) => {
-  const chatId = useParams();
+  const { chatId } = useParams();
   const [isRecording, setIsRecording] = useState(false);
   const [isUploading, setIsUploading] = useState(false);
 
